@@ -1,4 +1,4 @@
-package com.vsv.navigation3example.presentation.navigation
+package com.vsv.navigation3example.presentation.navigation.destination
 
 import kotlinx.serialization.Serializable
 
