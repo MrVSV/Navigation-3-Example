@@ -10,3 +10,7 @@
 ## Known issues
 * The Home tab does not store its state
 * Clicking on an open tab does not reset its state
+
+## Desirable improvements
+* Opt out of ListDetailPaneScaffold
+* Transitions between screens of different backstacks
