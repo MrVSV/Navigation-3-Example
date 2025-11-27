@@ -71,6 +71,20 @@ class MainActivity : ComponentActivity() {
                                 NavigationBarItem(
                                     selected = tab == state.currentTab,
                                     onClick = {
+                                        if (tab == state.currentTab) {
+                                            currentBackStack.clear()
+                                            when (tab) {
+                                                BottomTab.HOME -> currentBackStack.add(
+                                                    HomeDestination.Squares
+                                                )
+                                                BottomTab.SEARCH -> currentBackStack.add(
+                                                    SearchDestination.Search
+                                                )
+                                                BottomTab.MENU -> currentBackStack.add(
+                                                    MenuDestination.Menu
+                                                )
+                                            }
+                                        }
                                         viewModel.onAction(MainActivityAction.OnBottomTabClick(tab))
                                     },
                                     icon = {
