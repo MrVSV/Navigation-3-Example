@@ -1,4 +1,4 @@
-package com.vsv.navigation3example.ui.theme
+package com.vsv.navigation3example.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
