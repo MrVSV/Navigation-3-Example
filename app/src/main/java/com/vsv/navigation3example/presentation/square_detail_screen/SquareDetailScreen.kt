@@ -3,9 +3,10 @@ package com.vsv.navigation3example.presentation.square_detail_screen
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -52,7 +53,9 @@ fun SquareDetailScreen(
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         contentPadding = PaddingValues(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = Modifier.fillMaxSize()
     ) {
         if (state.currentSquare != null) {
             item(
@@ -60,18 +63,17 @@ fun SquareDetailScreen(
                     GridItemSpan(3)
                 }
             ) {
-                SquareItem(
-                    color = state.currentSquare.color,
-                    selected = false,
-                    onClick = {},
-                    modifier = Modifier.fillMaxWidth(0.5f)
-                )
-            }
-            item(
-                span = {
-                    GridItemSpan(3)
+                Row {
+                    Spacer(modifier = Modifier.weight(1f))
+                    SquareItem(
+                        color = state.currentSquare.color,
+                        selected = false,
+                        onClick = {},
+                        modifier = Modifier.weight(2f)
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
                 }
-            ) { Spacer(modifier = Modifier.height(20.dp)) }
+            }
         }
         if (state.otherSquares.isNotEmpty()) {
             item(

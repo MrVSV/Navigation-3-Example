@@ -1,7 +1,5 @@
 package com.vsv.navigation3example.presentation.square_layout
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -40,20 +38,20 @@ fun SquaresLayout(
     val sharedState by viewModel.state.collectAsStateWithLifecycle()
     val scaffoldDirective = createPaneScaffoldDirective()
     val scaffoldNavigator = rememberListDetailPaneScaffoldNavigator(
-        scaffoldDirective = scaffoldDirective
+        scaffoldDirective = scaffoldDirective,
     )
     val scope = rememberCoroutineScope()
 
     val detailPane = scaffoldNavigator.scaffoldValue[ListDetailPaneScaffoldRole.Detail]
 
     LaunchedEffect(detailPane, sharedState.currentSquareId) {
-        Log.d(TAG, "SquaresLayout: ${PaneAdaptedValue.Hidden}")
         if (detailPane == PaneAdaptedValue.Hidden && sharedState.currentSquareId != null) {
             viewModel.onAction(SquareLayoutAction.OnSquareClick(null))
         }
     }
 
-    val squareDetailBackStack = rememberNavBackStack(SquareDetailDestination.SquareDetail(null))
+    val squareDetailBackStack =
+        rememberNavBackStack(SquareDetailDestination.SquareDetail(sharedState.currentSquareId))
 
     BackHandler(scaffoldNavigator.canNavigateBack()) {
         scope.launch { scaffoldNavigator.navigateBack() }
@@ -118,7 +116,11 @@ fun SquaresLayout(
                                         if (previousSquare == null) {
                                             viewModel.onAction(SquareLayoutAction.OnSquareClick(null))
                                         } else {
-                                            viewModel.onAction(SquareLayoutAction.OnSquareClick(previousSquare.squareId))
+                                            viewModel.onAction(
+                                                SquareLayoutAction.OnSquareClick(
+                                                    previousSquare.squareId
+                                                )
+                                            )
                                         }
                                         squareDetailBackStack.removeLastOrNull()
                                     } else if (scaffoldNavigator.canNavigateBack()) {
