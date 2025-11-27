@@ -10,6 +10,7 @@
 ## Known issues
 * ~~The Home tab does not store its state~~
 * Clicking on an open tab does not reset its state
+* When transitioning from one square to another, the transition animation applies to the entire scene, not just the screen containing the square
 
 ## Desirable improvements
 * Opt out of ListDetailPaneScaffold ✔
