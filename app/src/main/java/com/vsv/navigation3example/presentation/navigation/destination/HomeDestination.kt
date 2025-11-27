@@ -6,6 +6,9 @@ import kotlinx.serialization.Serializable
 sealed interface HomeDestination : Destination {
 
     @Serializable
+    data object Squares: HomeDestination
+
+    @Serializable
     data object SquareList : HomeDestination
 
     @Serializable

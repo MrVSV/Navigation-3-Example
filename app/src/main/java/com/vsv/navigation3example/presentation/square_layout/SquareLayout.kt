@@ -51,7 +51,7 @@ fun SquaresLayout(
     }
 
     val squareDetailBackStack =
-        rememberNavBackStack(SquareDetailDestination.SquareDetail(sharedState.currentSquareId))
+        rememberNavBackStack(SquareDetailDestination.SquareDetail(null))
 
     BackHandler(scaffoldNavigator.canNavigateBack()) {
         scope.launch { scaffoldNavigator.navigateBack() }

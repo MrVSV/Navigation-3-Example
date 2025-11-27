@@ -14,7 +14,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.ui.NavDisplay
 import com.vsv.navigation3example.presentation.navigation.destination.HomeDestination
 import com.vsv.navigation3example.presentation.navigation.destination.MenuDestination
@@ -22,7 +21,6 @@ import com.vsv.navigation3example.presentation.navigation.destination.SearchDest
 import com.vsv.navigation3example.presentation.navigation.entries.entryProvider
 import com.vsv.navigation3example.presentation.navigation.util.Navigator
 import com.vsv.navigation3example.presentation.navigation.util.rememberNavigationState
-import com.vsv.navigation3example.presentation.navigation.util.rememberTwoPaneSceneStrategy
 import com.vsv.navigation3example.presentation.navigation.util.toEntries
 import com.vsv.navigation3example.presentation.ui.theme.Navigation3ExampleTheme
 
@@ -33,18 +31,15 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             val topLevelDestinations = mapOf(
-                HomeDestination.SquareList to BottomTab.HOME,
+                HomeDestination.Squares to BottomTab.HOME,
                 SearchDestination.Search to BottomTab.SEARCH,
                 MenuDestination.Menu to BottomTab.MENU
             )
             val navigationState = rememberNavigationState(
-                startRoute = HomeDestination.SquareList,
+                startRoute = HomeDestination.Squares,
                 topLevelRoutes = topLevelDestinations.keys
             )
-
             val navigator = remember { Navigator(navigationState) }
-
-            val sceneStrategy = rememberTwoPaneSceneStrategy<NavKey>()
 
             Navigation3ExampleTheme {
                 Scaffold(
@@ -80,7 +75,6 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NavDisplay(
                             entries = navigationState.toEntries(entryProvider(navigator)),
-                            sceneStrategy = sceneStrategy,
                             onBack = { navigator.goBack() },
                             modifier = Modifier.fillMaxSize()
                         )

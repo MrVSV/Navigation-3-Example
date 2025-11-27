@@ -68,7 +68,7 @@ class TwoPaneSceneStrategy<T : Any>(
         val sceneKey = Pair(listEntry, detailEntry)
         return TwoPaneScene(
             key = sceneKey,
-            previousEntries = entries.dropLast(2),
+            previousEntries = entries.dropLast(1),
             firstEntry = listEntry,
             secondEntry = detailEntry
         )
