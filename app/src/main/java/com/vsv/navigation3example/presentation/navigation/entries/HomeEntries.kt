@@ -25,7 +25,7 @@ fun EntryProviderScope<NavKey>.homeEntries(
     navigator: Navigator
 ) {
     entry<HomeDestination.SquareList>(
-        metadata = TwoPaneScene.twoPane()
+        metadata = TwoPaneScene.listPane()
     ) {
         SquareListScreenRoot(
             onCircleClick = {
@@ -38,7 +38,7 @@ fun EntryProviderScope<NavKey>.homeEntries(
         )
     }
     entry<HomeDestination.CircleDetails>(
-        metadata = TwoPaneScene.twoPane()
+        metadata = TwoPaneScene.detailPane()
     ) {
         Box(
             contentAlignment = Alignment.Center,
@@ -55,7 +55,7 @@ fun EntryProviderScope<NavKey>.homeEntries(
         }
     }
     entry<HomeDestination.SquareDetails>(
-        metadata = TwoPaneScene.twoPane()
+        metadata = TwoPaneScene.detailPane()
     ) {
         SquareDetailScreenRoot(
             onBack = { navigator.goBack() },

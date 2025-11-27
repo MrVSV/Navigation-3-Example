@@ -32,8 +32,10 @@ class TwoPaneScene<T : Any>(
     }
 
     companion object {
-        internal const val TWO_PANE_KEY = "TwoPane"
-        fun twoPane() = mapOf(TWO_PANE_KEY to true)
+        internal const val LIST_KEY = "ListDetailScene-List"
+        internal const val DETAIL_KEY = "ListDetailScene-Detail"
+        fun listPane() = mapOf(LIST_KEY to true)
+        fun detailPane() = mapOf(DETAIL_KEY to true)
     }
 }
 
@@ -61,25 +63,15 @@ class TwoPaneSceneStrategy<T : Any>(
             return null
         }
 
-        val lastTwoEntries = entries.takeLast(2)
-
-        return if (lastTwoEntries.size == 2
-            && lastTwoEntries.all { it.metadata.containsKey(TwoPaneScene.TWO_PANE_KEY) }
-        ) {
-            val firstEntry = lastTwoEntries.first()
-            val secondEntry = lastTwoEntries.last()
-
-            val sceneKey = Pair(firstEntry.contentKey, secondEntry.contentKey)
-
-            TwoPaneScene(
-                key = sceneKey,
-                previousEntries = entries.dropLast(1),
-                firstEntry = firstEntry,
-                secondEntry = secondEntry
-            )
-        } else {
-            null
-        }
+        val detailEntry = entries.lastOrNull()?.takeIf { it.metadata.containsKey(TwoPaneScene.DETAIL_KEY) } ?: return null
+        val listEntry = entries.findLast { it.metadata.containsKey(TwoPaneScene.LIST_KEY) } ?: return null
+        val sceneKey = Pair(listEntry, detailEntry)
+        return TwoPaneScene(
+            key = sceneKey,
+            previousEntries = entries.dropLast(2),
+            firstEntry = listEntry,
+            secondEntry = detailEntry
+        )
     }
 }
 
