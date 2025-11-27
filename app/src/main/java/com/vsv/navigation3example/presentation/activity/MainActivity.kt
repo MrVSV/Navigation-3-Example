@@ -45,6 +45,7 @@ class MainActivity : ComponentActivity() {
             val menuBackStack = rememberNavBackStack(MenuDestination.Menu)
 
             val currentBackStack = when (state.currentTab) {
+
                 BottomTab.HOME -> homeBackStack
                 BottomTab.SEARCH -> searchBackStack
                 BottomTab.MENU -> menuBackStack
