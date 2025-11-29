@@ -5,11 +5,21 @@ import androidx.navigation3.runtime.NavKey
 class Navigator(
     private val state: NavigationState
 ) {
-    fun navigate(route: NavKey) {
-        if (route in state.backStacks.keys) {
-            state.topLevelRoute = route
-        } else {
-            state.backStacks[state.topLevelRoute]?.add(route)
+    fun navigate(route: NavKey, topLevelRoute: NavKey = state.topLevelRoute) {
+        when {
+            route in state.backStacks.keys -> {
+                state.topLevelRoute = route
+            }
+
+            topLevelRoute != state.topLevelRoute -> {
+                if (topLevelRoute !in state.backStacks.keys) return
+                state.topLevelRoute = topLevelRoute
+                state.backStacks[topLevelRoute]?.add(route)
+            }
+
+            else -> {
+                state.backStacks[state.topLevelRoute]?.add(route)
+            }
         }
     }
 
@@ -27,8 +37,7 @@ class Navigator(
     fun resetStack() {
         val currentStack = state.backStacks[state.topLevelRoute]
             ?: error("Stack for ${state.topLevelRoute} not found")
-        val firstRoute = currentStack.first()
         currentStack.clear()
-        currentStack.add(firstRoute)
+        currentStack.add(state.topLevelRoute)
     }
 }

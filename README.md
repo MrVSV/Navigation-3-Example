@@ -14,4 +14,4 @@
 
 ## Desirable improvements
 * ~~Opt out of ListDetailPaneScaffold~~ (It works better then Scenes)
-* Transitions between screens of different backStacks
+* Transitions between screens of different backStacks ✔
